@@ -2,7 +2,7 @@ import torch.nn as nn
 from torchvision import models
 
 
-class MultitaskModel(nn.Module):
+class MultilabelModel(nn.Module):
     """
     ResNet[]-based model for multitask classification.
     Pretrained with the following parameters:
@@ -14,10 +14,11 @@ class MultitaskModel(nn.Module):
     """
 
     def __init__(self, num_categories=15, num_conditions=5):
-        super(MultitaskModel, self).__init__()
+        super(MultilabelModel, self).__init__()
 
         # use pretrained ResNet model for feature extraction
-        model = models.resnet18(pretrained=True)
+        # model = models.resnet18(pretrained=True)
+        model = models.resnet50(pretrained=True)
         self.feature_extractor = nn.Sequential(*list(model.children())[:-1])
 
         num_fc_in_features = model.fc.in_features
